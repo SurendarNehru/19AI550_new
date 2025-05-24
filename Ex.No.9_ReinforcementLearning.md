@@ -1,6 +1,6 @@
-# Ex.No: 9  Implementation of Simple Reinforcement Learning 
-### DATE:                                                                            
-### REGISTER NUMBER : 
+# Ex.No: 9  Implementation of Simple Reinforcement Learning                                                                          
+### NAME :  Surendar N 
+### REGISTER NUMBER : 212222040165
 ### AIM: 
 To write a program to implement  Reinforcement learning  in Unity 
 ### Algorithm:
@@ -26,17 +26,14 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
-
 public class MoveToTargetAgent : Agent
 {
     public Transform targetTransform;
     private Rigidbody agentRb;
-
     public override void Initialize()
     {
         agentRb = GetComponent<Rigidbody>();
     }
-
     public override void OnEpisodeBegin()
     {
         // Reset agent and target position
@@ -44,30 +41,22 @@ public class MoveToTargetAgent : Agent
         transform.localPosition = new Vector3(Random.Range(-4f, 4f), 0.5f, Random.Range(-4f, 4f));
         targetTransform.localPosition = new Vector3(Random.Range(-4f, 4f), 0.5f, Random.Range(-4f, 4f));
     }
-
     public override void CollectObservations(VectorSensor sensor)
     {
-        // Positions
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(targetTransform.localPosition);
-        // Agent velocity
         sensor.AddObservation(agentRb.velocity);
     }
-
     public override void OnActionReceived(ActionBuffers actions)
     {
         Vector3 move = new Vector3(actions.ContinuousActions[0], 0, actions.ContinuousActions[1]);
         agentRb.AddForce(move * 10);
-
-        // Reward
         float distanceToTarget = Vector3.Distance(transform.localPosition, targetTransform.localPosition);
         if (distanceToTarget < 1.2f)
         {
             SetReward(1.0f);
             EndEpisode();
         }
-
-        // Fail condition
         if (transform.localPosition.y < 0)
         {
             EndEpisode();
@@ -106,14 +95,6 @@ behaviors:
         strength: 1.0
 ```
 ### Output:
-
-
-
-
-
-
-
-
-
+![WhatsApp Image 2025-05-19 at 13 25 54_adf4f7e4](https://github.com/user-attachments/assets/245d9080-7668-4d88-b438-8096250c950a)
 ### Result:
-Thus the AI character was trained using reinforcement learning.
+Thus the AI character was trained using reinforcement learning and is executed successfully.
